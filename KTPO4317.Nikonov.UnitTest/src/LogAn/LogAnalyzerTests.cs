@@ -30,5 +30,14 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             Assert.True(result);
         }
 
+        [TestCase("file.NMD")]
+        [TestCase("file.nmd")]
+        public void IsValidLogFileName_ValidExtension_ReturnsTrue(string file)
+        {
+            LogAnalyzer analyzer = new LogAnalyzer();
+            bool result = analyzer.IsValidLogFileName(file);
+            Assert.True(result);
+        }
+
     }
 }
