@@ -7,9 +7,9 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
         {
             if (fileName.EndsWith(".NMD"))
             {
-                return (false);
+                return (true);
             }
-            return (true);
+            return (false);
         }
     }
 }
