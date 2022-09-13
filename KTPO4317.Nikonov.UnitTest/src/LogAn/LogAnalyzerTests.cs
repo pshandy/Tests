@@ -48,5 +48,14 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             StringAssert.Contains("Имя файла должно быть задано.", ex.Message);
         }
 
+        [TestCase("badfile.foo", false)]
+        [TestCase("file.nmd", true)]
+        public void IsValidLogFileName_WhenCalled_ChangesWasLastFileNameValid(string file, bool expected)
+        {
+            LogAnalyzer analyzer = new LogAnalyzer();
+            analyzer.IsValidLogFileName(file);
+            Assert.AreEqual(expected, analyzer.WasLastFileNameValid);
+        }
+
     }
 }
