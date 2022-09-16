@@ -15,10 +15,8 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             FakeExtensionManager fakeManager = new FakeExtensionManager();
             fakeManager.WillBeValid = true;
 
-            LogAnalyzer log = new LogAnalyzer(fakeManager);
-
-            bool result = log.IsValidLogFileName("short.nmd");
-
+            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeManager);
+            bool result = logAnalyzer.IsValidLogFileName("short.nmd");
             Assert.True(result);
 
         }
@@ -26,23 +24,41 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
         [Test]
         public void IsValidFileName_NameNotSupportedExtension_ReturnsFalse()
         {
-            FakeExtensionManager fakeExtensionManager = new FakeExtensionManager();
-            fakeExtensionManager.WillBeValid = false;
+            FakeExtensionManager fakeManager = new FakeExtensionManager();
+            fakeManager.WillBeValid = false;
 
-            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeExtensionManager);
-            bool result = logAnalyzer.IsValidLogFileName("short.xts");
+            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeManager);
+            bool result = logAnalyzer.IsValidLogFileName("short.nmd");
             Assert.False(result);
 
         }
 
-        internal class FakeExtensionManager : IExtensionManager
+        [Test]
+        public void IsValidFileName_ExtManagerThrowsException_ReturnsFalse()
         {
-            public bool WillBeValid = false;
+            FakeExtensionManager fakeManager = new FakeExtensionManager();
+            fakeManager.WillThrow = new Exception();
 
-            public bool IsValid(string fileName)
+            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeManager);
+            bool result = logAnalyzer.IsValidLogFileName("short.nmd");
+            Assert.False(result);
+        }
+
+    }
+
+    internal class FakeExtensionManager : IExtensionManager
+    {
+        public bool WillBeValid = false;
+        public Exception WillThrow = null;
+
+        public bool IsValid(string fileName)
+        {
+            if (WillThrow != null)
             {
-                return WillBeValid;
+                throw WillThrow;
             }
+            return WillBeValid;
         }
     }
+
 }

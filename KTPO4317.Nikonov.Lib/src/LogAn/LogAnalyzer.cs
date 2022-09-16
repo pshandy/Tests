@@ -16,7 +16,13 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
         public bool IsValidLogFileName(string fileName)
         {
             IExtensionManager mrg = extensionManager;
-            return (mrg.IsValid(fileName));
+            try
+            {
+                return mrg.IsValid(fileName);
+            } catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }
