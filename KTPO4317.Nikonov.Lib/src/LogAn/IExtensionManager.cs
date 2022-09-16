@@ -2,6 +2,6 @@
 {
     public interface IExtensionManager
     {
-        bool isValid(string fileName);
+        bool IsValid(string fileName);
     }
 }
