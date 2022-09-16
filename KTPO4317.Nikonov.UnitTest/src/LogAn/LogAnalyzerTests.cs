@@ -8,6 +8,12 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
     public class LogAnalyzerTests
     {
 
+        [TearDown]
+        public void AfterEachTest()
+        {
+            ExtensionManagerFactory.setExtensionManagaer(null);
+        }
+
         [Test]
         public void IsValidFileName_NameSupportedExtension_ReturnsTrue()
         {
@@ -15,7 +21,9 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             FakeExtensionManager fakeManager = new FakeExtensionManager();
             fakeManager.WillBeValid = true;
 
-            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeManager);
+            ExtensionManagerFactory.setExtensionManagaer(fakeManager);
+
+            LogAnalyzer logAnalyzer = new LogAnalyzer();
             bool result = logAnalyzer.IsValidLogFileName("short.nmd");
             Assert.True(result);
 
@@ -27,7 +35,9 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             FakeExtensionManager fakeManager = new FakeExtensionManager();
             fakeManager.WillBeValid = false;
 
-            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeManager);
+            ExtensionManagerFactory.setExtensionManagaer(fakeManager);
+
+            LogAnalyzer logAnalyzer = new LogAnalyzer();
             bool result = logAnalyzer.IsValidLogFileName("short.nmd");
             Assert.False(result);
 
@@ -39,7 +49,9 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             FakeExtensionManager fakeManager = new FakeExtensionManager();
             fakeManager.WillThrow = new Exception();
 
-            LogAnalyzer logAnalyzer = new LogAnalyzer(fakeManager);
+            ExtensionManagerFactory.setExtensionManagaer(fakeManager);
+
+            LogAnalyzer logAnalyzer = new LogAnalyzer();
             bool result = logAnalyzer.IsValidLogFileName("short.nmd");
             Assert.False(result);
         }
