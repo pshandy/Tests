@@ -7,10 +7,8 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
     { 
         public bool IsValidLogFileName(string fileName)
         {
-            //читать конфигурационный файл
-            //вернуть true
-            //если конфигурация поддерживается
-            return (true);
+            FileExtensionManager mrg = new FileExtensionManager();
+            return (mrg.isValid(fileName));
         }
     }
 }
