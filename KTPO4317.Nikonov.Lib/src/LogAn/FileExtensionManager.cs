@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace KTPO4317.Nikonov.Lib.src.LogAn
 {
@@ -6,10 +8,16 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
     {
         public bool IsValid(string fileName)
         {
-            //читать конфигурационный файл
-            //вернуть true
-            //если конфигурация поддерживается
-            throw new NotImplementedException();
+            string extension = ConfigurationManager.AppSettings.Get("extension");
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentException("Имя файла должно быть задано.");
+            }
+            if (fileName.ToUpper().EndsWith(extension))
+            {
+                return (true);
+            }
+            return (false);
         }
     }
 }
