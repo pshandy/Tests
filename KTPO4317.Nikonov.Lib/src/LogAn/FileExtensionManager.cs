@@ -2,9 +2,9 @@
 
 namespace KTPO4317.Nikonov.Lib.src.LogAn
 {
-    internal class FileExtensionManager
+    public class FileExtensionManager : IExtensionManager
     {
-        internal bool isValid(string fileName)
+        public bool isValid(string fileName)
         {
             //читать конфигурационный файл
             //вернуть true
