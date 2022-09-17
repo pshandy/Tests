@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KTPO4317.Nikonov.UnitTest",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KTPO4317.Nikonov.Lib", "KTPO4317.Nikonov.Lib\KTPO4317.Nikonov.Lib.csproj", "{793E1345-7B91-435E-8A0A-8D56C2CDE991}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KTPO4317.Nikonov.Service", "KTPO4317.Nikonov.Service\KTPO4317.Nikonov.Service.csproj", "{958E5D5A-B5E8-4E7E-8AE6-F88AA47366EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KTPO4317.Nikonov.Service", "KTPO4317.Nikonov.Service\KTPO4317.Nikonov.Service.csproj", "{958E5D5A-B5E8-4E7E-8AE6-F88AA47366EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

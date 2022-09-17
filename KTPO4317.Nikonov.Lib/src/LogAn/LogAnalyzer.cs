@@ -5,6 +5,9 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
 
     public class LogAnalyzer
     {
+
+        public event LogAnalyzerAction Analyzed = null;
+
         public bool IsValidLogFileName(string fileName)
         {
             IExtensionManager mrg = ExtensionManagerFactory.Create();
@@ -34,6 +37,15 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
                     emailService.SendEmail("somebody@mail.ru", "Невозможно вызвать веб-сервис", e.Message);
                 }
             }
+
+            //Обработка лога
+            //...
+
+            if (Analyzed != null)
+            {
+                Analyzed();
+            }
+
         }
 
     }
