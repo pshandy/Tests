@@ -16,5 +16,15 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
                 return false;
             }
         }
+
+        public void Analyze(string filename)
+        {
+            if (filename.Length < 8)
+            {
+                IWebService webService = WebServiceFactory.Create();
+                webService.LogError("Слишком короткое имя файла: " + filename);
+            }
+        }
+
     }
 }

@@ -12,6 +12,7 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
         public void AfterEachTest()
         {
             ExtensionManagerFactory.setExtensionManagaer(null);
+            WebServiceFactory.SetWebService(null);
         }
 
         [Test]
@@ -56,6 +57,18 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             Assert.False(result);
         }
 
+        [Test]
+        public void Analyze_TooShortFileName_CallsWebService()
+        {
+            FakeWebService mockWebService = new FakeWebService();
+            WebServiceFactory.SetWebService(mockWebService);
+
+            LogAnalyzer log = new LogAnalyzer();
+            string tooShortFileName = "abc.nmd";
+            log.Analyze(tooShortFileName);
+            StringAssert.Contains("Слишком короткое имя файла: " + tooShortFileName, mockWebService.lastError);
+        }
+
     }
 
     internal class FakeExtensionManager : IExtensionManager
@@ -70,6 +83,17 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
                 throw WillThrow;
             }
             return WillBeValid;
+        }
+    }
+
+    internal class FakeWebService : IWebService
+    {
+
+        public String lastError;
+
+        public void LogError(string message)
+        {
+            lastError = message;
         }
     }
 
