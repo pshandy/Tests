@@ -41,5 +41,14 @@ namespace KTPO4317.Nikonov.UnitTest.src.Sample
             Assert.IsTrue(result);
         }
 
+        [Test]
+        public void Returns_ArgAny_Throws()
+        {
+            IExtensionManager fakeExtensionManager = Substitute.For<IExtensionManager>();
+            fakeExtensionManager.When(x => x.IsValid(Arg.Any<String>()))
+                .Do(context => { throw new Exception("fake exception"); });
+            Assert.Throws<Exception>(() => fakeExtensionManager.IsValid("anything"));
+        }
+
     }
 }
