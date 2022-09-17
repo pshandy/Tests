@@ -50,5 +50,13 @@ namespace KTPO4317.Nikonov.UnitTest.src.Sample
             Assert.Throws<Exception>(() => fakeExtensionManager.IsValid("anything"));
         }
 
+        [Test]
+        public void Received_ParticularArg_Saves()
+        {
+            IWebService mockWebService = Substitute.For<IWebService>();
+            mockWebService.LogError("Поддельное сообщение");
+            mockWebService.Received().LogError("Поддельное сообщение");
+        }
+
     }
 }
