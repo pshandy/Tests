@@ -57,5 +57,42 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             Assert.False(result);
         }
 
+        [Test]
+        public void Analyze_TooShortFileName_CallsWebService()
+        {
+            IWebService mockWebService = Substitute.For<IWebService>();
+            WebServiceFactory.SetWebService(mockWebService);
+
+            LogAnalyzer log = new LogAnalyzer();
+            string tooShortFileName = "abc.nmd";
+            log.Analyze(tooShortFileName);
+            mockWebService.Received().LogError("Слишком короткое имя файла: " + tooShortFileName);
+        }
+
+
+        [Test]
+        public void Analyze_WebServiceThrows_SendsEmail()
+        {
+
+            Exception ThrownException = new Exception();
+
+            IWebService stubWebService = Substitute.For<IWebService>();
+            stubWebService
+                .When(x => x.LogError(Arg.Any<String>()))
+                .Do(context => { throw ThrownException; });
+            WebServiceFactory.SetWebService(stubWebService);
+
+            IEmailService mockEmail = Substitute.For<IEmailService>();
+            EmailServiceFactory.setEmailService(mockEmail);
+
+            LogAnalyzer log = new LogAnalyzer();
+            string tooShortFileName = "abc.nmd";
+            log.Analyze(tooShortFileName);
+
+            mockEmail.Received().SendEmail("somebody@mail.ru", "Невозможно вызвать веб-сервис", ThrownException.Message);
+
+        }
+
+
     }
 }
