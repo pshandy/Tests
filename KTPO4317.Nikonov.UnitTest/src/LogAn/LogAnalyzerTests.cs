@@ -13,6 +13,7 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
         {
             ExtensionManagerFactory.setExtensionManagaer(null);
             WebServiceFactory.SetWebService(null);
+            EmailServiceFactory.setEmailService(null);
         }
 
         [Test]
@@ -69,6 +70,27 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             StringAssert.Contains("Слишком короткое имя файла: " + tooShortFileName, mockWebService.lastError);
         }
 
+        [Test]
+        public void Analyze_WebServiceThrows_SendsEmail()
+        {
+            FakeWebService stubWebService = new FakeWebService();
+            WebServiceFactory.SetWebService(stubWebService);
+            stubWebService.WillThrow = new Exception("это подделка");
+
+            FakeEmailService mockEmail = new FakeEmailService();
+            EmailServiceFactory.setEmailService(mockEmail);
+
+            LogAnalyzer log = new LogAnalyzer();
+            string tooShortFileName = "abc.nmd";
+            log.Analyze(tooShortFileName);
+
+            StringAssert.Contains("somebody@mail.ru", mockEmail.To);
+            StringAssert.Contains("это подделка", mockEmail.Body);
+            StringAssert.Contains("Невозможно вызвать веб-сервис", mockEmail.Subject);
+        }
+
+
+
     }
 
     internal class FakeExtensionManager : IExtensionManager
@@ -90,10 +112,29 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
     {
 
         public String lastError;
+        public Exception WillThrow;
 
         public void LogError(string message)
         {
+            if (WillThrow != null)
+            {
+                throw WillThrow;
+            }
             lastError = message;
+        }
+    }
+
+    internal class FakeEmailService : IEmailService
+    {
+
+        public String To;
+        public String Subject;
+        public String Body;
+        public void SendEmail(string To, string Subject, string Body)
+        {
+            this.To = To;
+            this.Subject = Subject;
+            this.Body = Body;
         }
     }
 

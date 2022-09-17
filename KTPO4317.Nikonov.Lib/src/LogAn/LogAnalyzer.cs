@@ -21,8 +21,18 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
         {
             if (filename.Length < 8)
             {
-                IWebService webService = WebServiceFactory.Create();
-                webService.LogError("Слишком короткое имя файла: " + filename);
+                try
+                {
+                    //Передать внешней службе сообщение об ошибке
+                    IWebService webService = WebServiceFactory.Create();
+                    webService.LogError("Слишком короткое имя файла: " + filename);
+                }
+                catch (Exception e)
+                {
+                    IEmailService emailService = EmailServiceFactory.Create();
+                    //Отправить сообщение по электронной почте
+                    emailService.SendEmail("somebody@mail.ru", "Невозможно вызвать веб-сервис", e.Message);
+                }
             }
         }
 
