@@ -40,7 +40,7 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
 
             //Обработка лога
             //...
-
+            RaiseAnalyzedEvent();
         }
 
         public void RaiseAnalyzedEvent()

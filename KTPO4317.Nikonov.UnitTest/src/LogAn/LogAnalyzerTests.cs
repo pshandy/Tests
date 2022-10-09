@@ -17,6 +17,23 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
         }
 
         [Test]
+        public void Analyze_WhenAnalyzed_FiredEvent()
+        {
+            bool analyzedFired = false;
+
+            LogAnalyzer logAnalyzer = new LogAnalyzer();
+
+            logAnalyzer.Analyzed += delegate ()
+            {
+                analyzedFired = true;
+            };
+
+            logAnalyzer.Analyze("validfilename.vld");
+            Assert.True(analyzedFired);
+
+        }
+
+        [Test]
         public void IsValidFileName_NameSupportedExtension_ReturnsTrue()
         {
 
