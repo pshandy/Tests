@@ -7,10 +7,10 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
     public class Presenter
     {
 
-        private LogAnalyzer LogAnalyzer;
+        private ILogAnalyzer LogAnalyzer;
         private IView View;
 
-        public Presenter(LogAnalyzer LogAnalyzer, IView View)
+        public Presenter(ILogAnalyzer LogAnalyzer, IView View)
         {
             this.LogAnalyzer = LogAnalyzer;
             this.View = View;

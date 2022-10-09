@@ -19,6 +19,20 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
             mockView.Received().Render("Обработка завершена");
 
         }
+
+        [Test]
+        public void ctor_WhenAnalyzed_CallsViewRender_NSubstitute()
+        {
+            ILogAnalyzer stubLogAnalyzer = Substitute.For<ILogAnalyzer>();
+            IView mockView = Substitute.For<IView>();
+
+            Presenter presenter = new Presenter(stubLogAnalyzer, mockView);
+
+            stubLogAnalyzer.Analyzed += Raise.Event<LogAnalyzerAction>();
+
+            mockView.Received().Render("Обработка завершена");
+        }
+
     }
 
     class FakeLogAnalyzer : LogAnalyzer

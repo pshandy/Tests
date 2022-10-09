@@ -3,7 +3,7 @@
 namespace KTPO4317.Nikonov.Lib.src.LogAn
 {
 
-    public class LogAnalyzer
+    public class LogAnalyzer : ILogAnalyzer
     {
 
         public event LogAnalyzerAction Analyzed = null;
@@ -43,7 +43,7 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
 
         }
 
-        protected void RaiseAnalyzedEvent()
+        public void RaiseAnalyzedEvent()
         {
             if (Analyzed != null)
             {
