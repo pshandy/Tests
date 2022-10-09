@@ -41,11 +41,14 @@ namespace KTPO4317.Nikonov.Lib.src.LogAn
             //Обработка лога
             //...
 
+        }
+
+        protected void RaiseAnalyzedEvent()
+        {
             if (Analyzed != null)
             {
                 Analyzed();
             }
-
         }
 
     }
