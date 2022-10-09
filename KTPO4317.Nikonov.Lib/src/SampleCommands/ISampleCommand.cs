@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KTPO4317.Nikonov.Lib.src.SampleCommands
 {
-    interface ISampleCommand
+    public interface ISampleCommand
     {
         void Execute();
     }

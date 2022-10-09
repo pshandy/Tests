@@ -1,5 +1,8 @@
 ﻿using System;
+using KTPO4317.Nikonov.Lib.src.Common;
 using KTPO4317.Nikonov.Lib.src.LogAn;
+using KTPO4317.Nikonov.Lib.src.SampleCommands;
+using KTPO4317.Nikonov.Lib.src.WindsorInstallers;
 
 namespace KTPO4317.Nikonov.Service
 {
@@ -7,16 +10,18 @@ namespace KTPO4317.Nikonov.Service
     {
         static void Main(string[] args)
         {
-            LogAnalyzer logAnalyzer = new LogAnalyzer();
-            Console.WriteLine("Valid:");
-            Console.WriteLine(logAnalyzer.IsValidLogFileName("valid.nmd"));
-            Console.WriteLine(logAnalyzer.IsValidLogFileName("valid.NMD"));
-            Console.WriteLine(logAnalyzer.IsValidLogFileName("valid.nMd"));
-            Console.WriteLine("InValid:");
-            Console.WriteLine(logAnalyzer.IsValidLogFileName("invalid."));
-            Console.WriteLine(logAnalyzer.IsValidLogFileName("invalid.txt"));
-            Console.WriteLine(logAnalyzer.IsValidLogFileName("invalid"));
-            Console.WriteLine(logAnalyzer.IsValidLogFileName("invalid.?/!?"));
+
+            CastleFactory.container.Install(
+                new SampleCommandInstaller(),
+                new ViewInstaller()
+                );
+
+            for (int i = 0; i < 3; i++)
+            {
+                ISampleCommand sampleCommand = CastleFactory.container.Resolve<ISampleCommand>();
+                sampleCommand.Execute();
+            }
+
         }
     }
 }
