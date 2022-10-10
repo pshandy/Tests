@@ -17,6 +17,7 @@ namespace KTPO4317.Nikonov.Lib.src.SampleCommands
         public void Execute()
         {
             view.Render(this.GetType().ToString() + "\n iExecute = " + ++iExecute);
+            throw new Exception();
         }
     }
 }
