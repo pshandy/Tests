@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KTPO4317.Nikonov.Lib.src.SampleCommands
 {
-    class SampleCommandDecorator : ISampleCommand
+    public class SampleCommandDecorator : ISampleCommand
     {
         private readonly ISampleCommand sampleCommand;
         private readonly IView view;

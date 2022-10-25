@@ -11,6 +11,8 @@ namespace KTPO4317.Nikonov.UnitTest.src.LogAn
         public void AfterEachTest()
         {
             ExtensionManagerFactory.setExtensionManagaer(null);
+            EmailServiceFactory.setEmailService(null);
+            WebServiceFactory.SetWebService(null);
         }
 
         [Test]

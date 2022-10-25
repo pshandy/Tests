@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KTPO4317.Nikonov.Lib.src.SampleCommands
 {
-    class ExceptionIntercepter : ISampleCommand
+    public class ExceptionIntercepter : ISampleCommand
     {
         private readonly ISampleCommand sampleCommandDecorator;
         private readonly IView view;
