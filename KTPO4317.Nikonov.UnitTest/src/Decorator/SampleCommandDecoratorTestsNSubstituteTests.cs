@@ -32,6 +32,7 @@ namespace KTPO4317.Nikonov.UnitTest.src.Decorator
             ISampleCommand commandDecorator = new SampleCommandDecorator(stubCommand, mockView);
             commandDecorator.Execute();
             mockView.Received().Render("Начало: KTPO4317.Nikonov.Lib.src.SampleCommands.SampleCommandDecorator");
+            mockView.Received().Render("Конец: KTPO4317.Nikonov.Lib.src.SampleCommands.SampleCommandDecorator");
         }
 
     }
